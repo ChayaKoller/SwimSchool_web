@@ -1,10 +1,6 @@
 
+import DevPlaygroundPage from "./pages/DevPlaygroundPage";
 
-function App() {
-  
-      return<>
-      </> 
-
+export default function App() {
+  return <DevPlaygroundPage />;
 }
-
-export default App

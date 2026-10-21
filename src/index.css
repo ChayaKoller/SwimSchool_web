@@ -1,0 +1,82 @@
+@import "tailwindcss";
+ 
+/* ה-Theme של "שחייה בכיף". כל הצבעים, הגופנים, הפינות והצללים מוגדרים כאן בלבד.
+   כל משתנה כאן הופך לקלאס של Tailwind: --color-primary -> bg-primary / text-primary / border-primary,
+   --radius-card -> rounded-card, --shadow-soft -> shadow-soft, --font-brand -> font-brand */
+@theme {
+  /* גופנים */
+  --font-sans: "Rubik", system-ui, "Segoe UI", Arial, sans-serif;
+  --font-brand: "Fredoka", "Rubik", system-ui, sans-serif;
+ 
+  /* צבעים */
+  --color-water: #8fd6e7;        /* מים: מסך כניסה, פס הכותרת, ברוכים הבאים */
+  --color-page: #eaf8fb;         /* רקע העמוד */
+  --color-primary: #1890a8;      /* כחול עמוק: כפתורים, קישורים, שדה פעיל */
+  --color-primary-text: #137a90; /* כחול עמוק לטקסט על רקע בהיר */
+  --color-ink: #5b60aa;          /* סגול כהה: כותרות עמודים, טקסט מודגש */
+  --color-pink: #ef5b95;         /* הדגשות, תגיות, הכפתור החשוב בעמוד */
+  --color-coral: #f07860;        /* התראות עדינות, "טרם סומן" */
+  --color-lavender: #c078d8;     /* רקעים עדינים לתגיות */
+  --color-brown: #4a2a1e;        /* רק בלוגו */
+  --color-success: #2e9e6a;      /* הודעות הצלחה בלבד */
+  --color-danger: #d93b3b;       /* הודעות שגיאה בלבד */
+ 
+  /* הקו העסקי: קו שחור דק וצל שחור "קשיח" לכפתורים */
+  --color-line: #14141f;
+  --shadow-hard: 3px 3px 0 var(--color-line);
+ 
+  /* פינות */
+  --radius-card: 16px;
+  --radius-control: 10px;
+ 
+  /* צללים רכים */
+  --shadow-soft: 0 4px 16px rgb(24 144 168 / 0.1);
+  --shadow-lifted: 0 10px 30px rgb(91 96 170 / 0.18);
+}
+ 
+/* הגרדיאנט ה"מתנפח": הכפתור הראשי, הפריט הפעיל בתפריט, העמוד הנוכחי בעימוד, פס תפוסה */
+@utility bg-inflate {
+  background-image: linear-gradient(135deg, #f07860 0%, #ef5b95 50%, #8a6fd8 100%);
+}
+ 
+@layer base {
+  html {
+    background-color: var(--color-page);
+  }
+ 
+  body {
+    min-height: 100dvh;
+    background-color: var(--color-page);
+    color: #1e293b;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+ 
+  h1,
+  h2,
+  h3 {
+    color: var(--color-ink);
+    font-weight: 700;
+  }
+ 
+  /* מסגרת מיקוד אחידה במקלדת, לכל רכיב שאפשר להגיע אליו */
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+ 
+  /* הרקע הכהה מאחורי חלון (<dialog>) */
+  dialog::backdrop {
+    background: rgb(15 23 42 / 0.45);
+  }
+}
+ 
+/* מי שביקש במערכת ההפעלה פחות תנועה, לא מקבל אנימציות */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

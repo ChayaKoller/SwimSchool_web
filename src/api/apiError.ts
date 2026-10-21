@@ -40,3 +40,6 @@ export const NETWORK_ERROR = new ApiError({
   code: "NETWORK_ERROR",
   message: "אין חיבור לשרת. בדקי את החיבור ונסי שוב"
 });
+export function isGlobalError(status: number) {
+  return status === 0 || status === 403 || status === 429 || status >= 500;
+}
