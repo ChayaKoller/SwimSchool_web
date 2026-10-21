@@ -1,0 +1,62 @@
+import { z } from "zod";
+import { todayIsrael } from "./format";
+
+const REQUIRED = "שדה חובה";
+
+// טקסט חובה: מוריד רווחים בהתחלה ובסוף, ולא ריק
+export const requiredText = (max: number) =>z
+    .string()
+    .trim()
+    .min(1, { error: REQUIRED })
+    .max(max, { error: `עד ${max} תווים` });
+
+// טקסט רשות: ריק הופך ל-null (השרת מצפה ל-null ולא ל-"")
+export const optionalText = (max: number) => z
+    .string()
+    .trim()
+    .max(max, { error: `עד ${max} תווים` })
+    .transform((value) => value || null);
+
+// ת"ז: בדיוק 9 ספרות
+export const identityNumber = z.string().trim().regex(/^\d{9}$/, { error: 'ת"ז צריכה להכיל 9 ספרות' });
+
+// טלפון: חובה, עד 20 תווים (כמו בשרת)
+export const phone = requiredText(20);
+
+// אימייל רשות: ריק -> null, אחרת אימייל תקין עד 254 תווים
+export const optionalEmail = z
+  .string()
+  .trim()
+  .max(254, { error: "עד 254 תווים" })
+  .refine((value) => value === "" || z.email().safeParse(value).success, {
+    error: "כתובת אימייל לא תקינה",
+  })
+  .transform((value) => value || null);
+
+// אימייל חובה (כניסה, מזכירה)
+export const requiredEmail = z
+  .string()
+  .trim()
+  .min(1, { error: REQUIRED })
+  .pipe(z.email({ error: "כתובת אימייל לא תקינה" }));
+
+// סיסמה: 8 עד 128, לפחות אות אחת ולפחות ספרה אחת
+export const password = z
+  .string()
+  .min(8, { error: "לפחות 8 תווים" })
+  .max(128, { error: "עד 128 תווים" })
+  .regex(/\p{L}/u, { error: "צריכה להכיל לפחות אות אחת" })
+  .regex(/\d/, { error: "צריכה להכיל לפחות ספרה אחת" });
+
+// סכום: מספר, 0 ומעלה. בטופס: register("amount", { valueAsNumber: true })
+export const amount = z
+  .number({ error: "יש להזין סכום" })
+  .min(0, { error: "הסכום לא יכול להיות שלילי" });
+
+// תאריך בעבר, בפורמט "YYYY-MM-DD" (מה ששדה type="date" נותן)
+export const pastDate = z
+  .string()
+  .min(1, { error: REQUIRED })
+  .refine((value) => value < todayIsrael(), {
+    error: "התאריך צריך להיות בעבר",
+  });

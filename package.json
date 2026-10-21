@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "gen:api": "npx --yes openapi-typescript@7 http://localhost:5136/swagger/v1/swagger.json -o src/api/schema.d.ts",
+     "dup": "jscpd src --format typescript,tsx --ignore \"**/schema.d.ts\" --min-lines 5 --min-tokens 50",
+    "check": "tsc -b && oxlint && jscpd src --format typescript,tsx --ignore \"**/schema.d.ts\" --min-lines 5 --min-tokens 50 --threshold 0"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.2",
