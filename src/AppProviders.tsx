@@ -5,6 +5,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ToastProvider } from "./context/ToastContext";
 import { useToast } from "./context/useToast";
 import { createQueryClient } from "./api/queryClient";
+import { AuthProvider } from "./context/AuthContext";
 
 function QueryProviders({ children }: { children: ReactNode }) {
   const toast = useToast();
@@ -24,7 +25,11 @@ function QueryProviders({ children }: { children: ReactNode }) {
 export default function AppProviders({children,}: {children: ReactNode;}) {
   return (
     <ToastProvider>
-      <QueryProviders>{children}</QueryProviders>
+      <QueryProviders>
+        <AuthProvider >
+          {children}
+        </AuthProvider>
+      </QueryProviders>
     </ToastProvider>
   );
 }

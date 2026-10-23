@@ -27,4 +27,5 @@ export const queryKeys = {
   reportSettings: ["report-settings"] as const,
   teacherOptions: ["teachers", "options"] as const,
   secretaries: ["secretaries"] as const,
+  auth: { me: ["auth", "me"] as const }
 };

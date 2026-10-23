@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { todayIsrael } from "./format";
 
-const REQUIRED = "שדה חובה";
+export const REQUIRED = "שדה חובה";
 
 // טקסט חובה: מוריד רווחים בהתחלה ובסוף, ולא ריק
 export const requiredText = (max: number) =>z
@@ -38,7 +38,9 @@ export const requiredEmail = z
   .string()
   .trim()
   .min(1, { error: REQUIRED })
-  .pipe(z.email({ error: "כתובת אימייל לא תקינה" }));
+  .refine((value) => z.email().safeParse(value).success, {
+    error: "כתובת אימייל לא תקינה",
+  });
 
 // סיסמה: 8 עד 128, לפחות אות אחת ולפחות ספרה אחת
 export const password = z

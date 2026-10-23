@@ -80,3 +80,61 @@
     transition-duration: 0.01ms !important;
   }
 }
+/* ===== מסך הכניסה: בריכה רכה (R2) ===== */
+@theme {
+  --font-pro: "Heebo", "Rubik", system-ui, sans-serif;
+  --animate-glow: glow 16s ease-in-out infinite alternate;
+  --animate-wave: wave 16s linear infinite;
+  --animate-wave-slow: wave 26s linear infinite;
+  --animate-rise: rise 12s ease-in infinite;
+  --animate-bob: bob 6s ease-in-out infinite;
+  --animate-inflate: inflate 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  --animate-surface: surface 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-ripple: ripple 1.6s ease-out both;
+  --animate-fade-up: fade-up 0.8s ease-out both;
+
+  @keyframes glow {
+    to { transform: translate(8%, 6%) scale(1.15); }
+  }
+  @keyframes wave {
+    to { transform: translateX(-50%); }
+  }
+  @keyframes rise {
+    0% { transform: translateY(0) scale(0.8); opacity: 0; }
+    15% { opacity: 0.7; }
+    100% { transform: translateY(-105dvh) scale(1.15); opacity: 0; }
+  }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0) rotate(var(--tilt, 0deg)); }
+    50% { transform: translateY(-12px) rotate(calc(var(--tilt, 0deg) + 4deg)); }
+  }
+  @keyframes surface {
+    0% { transform: translateY(70px) scale(0.94); opacity: 0; filter: blur(6px); }
+    100% { transform: none; opacity: 1; filter: none; }
+  }
+  @keyframes ripple {
+    0% { transform: scale(0.6); opacity: 0.9; }
+    100% { transform: scale(1.6); opacity: 0; }
+  }
+  @keyframes fade-up {
+    0% { transform: translateY(16px); opacity: 0; }
+    100% { transform: none; opacity: 1; }
+  }
+  @keyframes inflate {
+    0% { transform: scale(0.6); opacity: 0; }
+    60% { transform: scale(1.08); opacity: 1; }
+    100% { transform: scale(1); }
+  }
+}
+
+/* "שחיות בכיף": אותיות "מתנפחות" כמו בפוסטר */
+@utility text-inflated {
+  font-family: var(--font-brand);
+  font-weight: 700;
+  line-height: 0.95;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-stroke: 1px var(--color-line);
+  filter: drop-shadow(0 3px 0 rgb(52 30 160 / 0.6)) drop-shadow(0 10px 14px rgb(91 96 170 / 0.35));
+}
