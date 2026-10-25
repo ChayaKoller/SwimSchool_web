@@ -58,3 +58,16 @@ export function todayIsrael(): string {
 export function formatMoney(amount: number): string {
   return moneyFormatter.format(amount);
 }
+export function ageFrom(birthDate: string): number {
+  return dayjs().diff(dayjs(birthDate), "year");
+}
+const LESSON_FORMAT = "[יום] dddd, DD/MM/YYYY HH:mm"
+export function formatLessonTime(utcValue){
+    return toIsrael(utcValue).locale("he").format(LESSON_FORMAT);
+}
+export function formatLocalLessonTime(localValue){
+  return dayjs(localValue).locale("he").format(LESSON_FORMAT)
+}
+export function isFuture(utcValue){
+  return dayjs.utc(utcValue).isAfter(dayjs())
+}

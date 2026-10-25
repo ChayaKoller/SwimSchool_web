@@ -1,7 +1,5 @@
-import { LogIn } from "lucide-react";
+
 import { createBrowserRouter } from "react-router";
-
-
 import LoginPage from "../pages/LoginPage";
 import HomePage from "../pages/HomePage";
 import SchedulePage from "../pages/SchedulePage.tsx        ";
@@ -12,6 +10,9 @@ import ErrorPage from "../pages/ErrorPage";
 import AppLayout from "../components/layout/AppLayout";
 import RequireAuth from "./RequireAuth";
 import RequireRole from "./RequireRole";
+import StudentsPage from "../pages/StudentPage";
+import StudentFormPage from "../pages/StudentFormPage";
+import StudentDetailsPage from "../pages/StudentDetailsPage";
 
 export const router = createBrowserRouter([
   {
@@ -42,6 +43,25 @@ export const router = createBrowserRouter([
               },
             ],
           },
+          {
+            path: "/students",
+            element: <StudentsPage />
+
+          },
+          {
+            path: "/students/new",
+            element: <StudentFormPage />
+
+          },
+          {
+            path: "/students/:id",
+            element: <StudentDetailsPage />
+
+          },
+          {
+            path: "/students/:id/edit",
+            element: <StudentFormPage />
+          }
         ],
       },
     ],

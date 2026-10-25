@@ -36,7 +36,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
           aria-hidden="true"
           className="grid size-10 shrink-0 place-items-center rounded-full border-[1.5px] border-line bg-lavender/25 text-base font-bold text-ink"
         >
-          {user.fullName[0]}
+          {user?.fullName[0]}
         </div>
 
         <div className="hidden leading-tight sm:block">

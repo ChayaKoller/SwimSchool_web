@@ -9,8 +9,9 @@ export type AuthApi={
     logout:()=>void
 
 }
-import { useContext } from "react";
-import { AuthContext } from "./AuthContext";
+import { createContext, useContext } from "react";
+
+export const AuthContext = createContext<AuthApi | null>(null);
 
 export function useAuth() {
   const context = useContext(AuthContext);

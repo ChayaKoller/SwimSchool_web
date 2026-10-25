@@ -5,7 +5,7 @@ export default function Home(){
 const {user}=useAuth();
 
     return(
-        <><PageHeader title={user.fullName}></PageHeader></>
+        <><PageHeader title={user?.fullName ?? ""}></PageHeader></>
     
 
    )

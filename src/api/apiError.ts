@@ -43,3 +43,9 @@ export const NETWORK_ERROR = new ApiError({
 export function isGlobalError(status: number) {
   return status === 0 || status === 403 || status === 429 || status >= 500;
 }
+export function isNotFound(error: unknown) {
+  return error instanceof ApiError && error.status === 404;
+}
+export function hasErrorCode(error: unknown, code: string) {
+  return error instanceof ApiError && error.code === code;
+}

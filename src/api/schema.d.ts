@@ -2430,10 +2430,10 @@ export interface components {
             wasPresent: boolean;
         };
         AuthResponse: {
-            token?: string | null;
+            token: string;
             /** Format: date-time */
-            expiresAt?: string;
-            user?: components["schemas"]["CurrentUserDto"];
+            expiresAt: string;
+            user: components["schemas"]["CurrentUserDto"];
         };
         ChangePasswordRequest: {
             currentPassword: string;
@@ -2460,7 +2460,7 @@ export interface components {
             pricePerTreatment: number;
             serviceDescription: string;
             insuranceCompany?: string | null;
-            lessonDates?: string[] | null;
+            lessonDates?: string[];
             /** Format: int32 */
             studentId: number;
         };
@@ -2487,9 +2487,9 @@ export interface components {
         };
         CurrentUserDto: {
             /** Format: int32 */
-            id?: number;
-            fullName?: string | null;
-            role?: components["schemas"]["UserRole"];
+            id: number;
+            fullName: string;
+            role: components["schemas"]["UserRole"];
         };
         EnrollRequest: {
             /** Format: int32 */
@@ -2501,35 +2501,35 @@ export interface components {
         };
         EnrollmentDto: {
             /** Format: int32 */
-            id?: number;
+            id: number;
             /** Format: int32 */
-            studentId?: number;
-            studentName?: string | null;
+            studentId: number;
+            studentName: string;
             /** Format: int32 */
-            groupId?: number;
-            groupName?: string | null;
+            groupId: number;
+            groupName: string;
             /** Format: date-time */
-            enrolledAt?: string;
+            enrolledAt: string;
             /** Format: double */
-            amountDue?: number;
+            amountDue: number;
             /** Format: double */
-            amountPaid?: number;
-            isActive?: boolean;
+            amountPaid: number;
+            isActive: boolean;
         };
         ErrorResponse: {
             /** Format: int32 */
-            status?: number;
-            code?: string | null;
-            message?: string | null;
-            errors?: {
+            status: number;
+            code: string;
+            message: string;
+            errors: {
                 [key: string]: string[];
             } | null;
-            traceId?: string | null;
+            traceId: string;
         };
         GridCellDto: {
             /** Format: int32 */
-            lessonId?: number;
-            wasPresent?: boolean | null;
+            lessonId: number;
+            wasPresent: boolean | null;
         };
         GridCellUpdate: {
             /** Format: int32 */
@@ -2540,120 +2540,120 @@ export interface components {
         };
         GridLessonDto: {
             /** Format: int32 */
-            lessonId?: number;
+            lessonId: number;
             /** Format: date-time */
-            startTime?: string;
-            tookPlace?: boolean;
-            isMakeup?: boolean;
+            startTime: string;
+            tookPlace: boolean;
+            isMakeup: boolean;
         };
         GridRowDto: {
             /** Format: int32 */
-            enrollmentId?: number;
+            enrollmentId: number;
             /** Format: int32 */
-            studentId?: number;
-            fullName?: string | null;
+            studentId: number;
+            fullName: string;
             /** Format: int32 */
-            absencesCount?: number;
-            cells?: components["schemas"]["GridCellDto"][] | null;
+            absencesCount: number;
+            cells: components["schemas"]["GridCellDto"][];
         };
         GroupAttendanceGridDto: {
             /** Format: int32 */
-            groupId?: number;
-            groupName?: string | null;
-            lessons?: components["schemas"]["GridLessonDto"][] | null;
-            rows?: components["schemas"]["GridRowDto"][] | null;
+            groupId: number;
+            groupName: string;
+            lessons: components["schemas"]["GridLessonDto"][];
+            rows: components["schemas"]["GridRowDto"][];
         };
         GroupDetailsDto: {
             /** Format: int32 */
-            id?: number;
-            name?: string | null;
+            id: number;
+            name: string;
             /** Format: int32 */
-            year?: number;
-            season?: components["schemas"]["Season"];
+            year: number;
+            season: components["schemas"]["Season"];
             /** Format: int32 */
-            lessonsCount?: number;
+            lessonsCount: number;
             /** Format: double */
-            price?: number;
-            isActive?: boolean;
+            price: number;
+            isActive: boolean;
             /** Format: int32 */
-            maxStudents?: number;
+            maxStudents: number;
             /** Format: int32 */
-            enrolledCount?: number;
+            enrolledCount: number;
             /** Format: int32 */
-            freeSpots?: number;
+            freeSpots: number;
             /** Format: int32 */
-            version?: number;
-            students?: components["schemas"]["GroupStudentDto"][] | null;
-            lessons?: components["schemas"]["LessonDto"][] | null;
+            version: number;
+            students: components["schemas"]["GroupStudentDto"][];
+            lessons: components["schemas"]["LessonDto"][];
         };
         GroupDto: {
             /** Format: int32 */
-            id?: number;
-            name?: string | null;
+            id: number;
+            name: string;
             /** Format: int32 */
-            year?: number;
-            season?: components["schemas"]["Season"];
+            year: number;
+            season: components["schemas"]["Season"];
             /** Format: int32 */
-            lessonsCount?: number;
+            lessonsCount: number;
             /** Format: double */
-            price?: number;
-            isActive?: boolean;
+            price: number;
+            isActive: boolean;
             /** Format: int32 */
-            maxStudents?: number;
+            maxStudents: number;
             /** Format: int32 */
-            enrolledCount?: number;
+            enrolledCount: number;
             /** Format: int32 */
-            freeSpots?: number;
+            freeSpots: number;
             /** Format: int32 */
-            version?: number;
+            version: number;
         };
         GroupDtoPagedResult: {
-            items?: components["schemas"]["GroupDto"][] | null;
+            items: components["schemas"]["GroupDto"][];
             /** Format: int32 */
-            totalCount?: number;
+            totalCount: number;
             /** Format: int32 */
-            page?: number;
+            page: number;
             /** Format: int32 */
-            pageSize?: number;
+            pageSize: number;
             /** Format: int32 */
-            readonly totalPages?: number;
+            readonly totalPages: number;
         };
         GroupStudentDto: {
             /** Format: int32 */
-            id?: number;
-            fullName?: string | null;
+            id: number;
+            fullName: string;
             /** Format: double */
-            amountOwed?: number;
+            amountOwed: number;
         };
         /** @enum {string} */
         HealthFund: "Maccabi" | "Clalit" | "Meuhedet" | "Leumit";
         LessonAttendanceDto: {
             /** Format: int32 */
-            lessonId?: number;
-            groupName?: string | null;
+            lessonId: number;
+            groupName: string;
             /** Format: date-time */
-            startTime?: string;
-            tookPlace?: boolean;
-            students?: components["schemas"]["LessonAttendanceStudentDto"][] | null;
+            startTime: string;
+            tookPlace: boolean;
+            students: components["schemas"]["LessonAttendanceStudentDto"][];
         };
         LessonAttendanceStudentDto: {
             /** Format: int32 */
-            enrollmentId?: number;
+            enrollmentId: number;
             /** Format: int32 */
-            studentId?: number;
-            fullName?: string | null;
-            wasPresent?: boolean | null;
+            studentId: number;
+            fullName: string;
+            wasPresent: boolean | null;
         };
         LessonDto: {
             /** Format: int32 */
-            lessonId?: number;
+            lessonId: number;
             /** Format: int32 */
-            groupId?: number;
-            groupName?: string | null;
+            groupId: number;
+            groupName: string;
             /** Format: date-time */
-            startTime?: string;
-            tookPlace?: boolean;
-            isMakeup?: boolean;
+            startTime: string;
+            tookPlace: boolean;
+            isMakeup: boolean;
         };
         LoginRequest: {
             /** Format: email */
@@ -2662,116 +2662,116 @@ export interface components {
         };
         ReportDto: {
             /** Format: int32 */
-            id?: number;
+            id: number;
             /** Format: int32 */
-            studentId?: number;
-            studentName?: string | null;
-            healthFund?: components["schemas"]["HealthFund"];
-            insuranceCompany?: string | null;
-            treatmentType?: components["schemas"]["TreatmentType"];
+            studentId: number;
+            studentName: string;
+            healthFund: components["schemas"]["HealthFund"];
+            insuranceCompany: string | null;
+            treatmentType: components["schemas"]["TreatmentType"];
             /** Format: double */
-            pricePerTreatment?: number;
+            pricePerTreatment: number;
             /** Format: double */
-            totalAmount?: number;
-            serviceDescription?: string | null;
+            totalAmount: number;
+            serviceDescription: string;
             /** Format: date-time */
-            issuedAt?: string;
-            createdByName?: string | null;
-            lessonDates?: string[] | null;
+            issuedAt: string;
+            createdByName: string;
+            lessonDates: string[];
         };
         ReportDtoPagedResult: {
-            items?: components["schemas"]["ReportDto"][] | null;
+            items: components["schemas"]["ReportDto"][];
             /** Format: int32 */
-            totalCount?: number;
+            totalCount: number;
             /** Format: int32 */
-            page?: number;
+            page: number;
             /** Format: int32 */
-            pageSize?: number;
+            pageSize: number;
             /** Format: int32 */
-            readonly totalPages?: number;
+            readonly totalPages: number;
         };
         ReportSettingsDto: {
-            reportSignature?: string | null;
+            reportSignature: string | null;
             /** Format: double */
-            defaultGroupPrice?: number;
+            defaultGroupPrice: number;
             /** Format: double */
-            defaultIndividualPrice?: number | null;
+            defaultIndividualPrice: number | null;
             /** Format: int32 */
-            defaultTreatmentsCount?: number;
+            defaultTreatmentsCount: number;
         };
         /** @enum {string} */
         Season: "Winter" | "Spring" | "Summer" | "Autumn";
         SecretaryDto: {
             /** Format: int32 */
-            id?: number;
-            fullName?: string | null;
-            email?: string | null;
-            phone?: string | null;
-            isActive?: boolean;
+            id: number;
+            fullName: string;
+            email: string;
+            phone: string;
+            isActive: boolean;
             /** Format: date-time */
-            lastLoginAt?: string | null;
+            lastLoginAt: string | null;
         };
         SetPasswordRequest: {
             newPassword: string;
         };
         StudentDetailsDto: {
             /** Format: int32 */
-            id?: number;
-            identityNumber?: string | null;
-            fullName?: string | null;
-            phone?: string | null;
-            email?: string | null;
+            id: number;
+            identityNumber: string;
+            fullName: string;
+            phone: string;
+            email: string | null;
             /** Format: date */
-            birthDate?: string;
-            healthFund?: components["schemas"]["HealthFund"];
-            placementRequest?: string | null;
-            isActive?: boolean;
-            responsibleTeacherName?: string | null;
-            groups?: components["schemas"]["StudentGroupDto"][] | null;
+            birthDate: string;
+            healthFund: components["schemas"]["HealthFund"];
+            placementRequest: string | null;
+            isActive: boolean;
+            responsibleTeacherName: string;
+            groups: components["schemas"]["StudentGroupDto"][];
         };
         StudentGroupDto: {
             /** Format: int32 */
-            enrollmentId?: number;
+            enrollmentId: number;
             /** Format: int32 */
-            groupId?: number;
-            groupName?: string | null;
-            season?: components["schemas"]["Season"];
+            groupId: number;
+            groupName: string;
+            season: components["schemas"]["Season"];
             /** Format: int32 */
-            year?: number;
+            year: number;
             /** Format: double */
-            amountDue?: number;
+            amountDue: number;
             /** Format: double */
-            amountPaid?: number;
+            amountPaid: number;
         };
         StudentListItemDto: {
             /** Format: int32 */
-            id?: number;
-            identityNumber?: string | null;
-            fullName?: string | null;
-            phone?: string | null;
-            healthFund?: components["schemas"]["HealthFund"];
-            isActive?: boolean;
+            id: number;
+            identityNumber: string;
+            fullName: string;
+            phone: string;
+            healthFund: components["schemas"]["HealthFund"];
+            isActive: boolean;
             /** Format: double */
-            amountOwed?: number;
+            amountOwed: number;
             /** Format: int32 */
-            absencesCount?: number;
+            absencesCount: number;
         };
         StudentListItemDtoPagedResult: {
-            items?: components["schemas"]["StudentListItemDto"][] | null;
+            items: components["schemas"]["StudentListItemDto"][];
             /** Format: int32 */
-            totalCount?: number;
+            totalCount: number;
             /** Format: int32 */
-            page?: number;
+            page: number;
             /** Format: int32 */
-            pageSize?: number;
+            pageSize: number;
             /** Format: int32 */
-            readonly totalPages?: number;
+            readonly totalPages: number;
         };
         TeacherOptionDto: {
             /** Format: int32 */
-            id?: number;
-            fullName?: string | null;
-            phone?: string | null;
+            id: number;
+            fullName: string;
+            phone: string;
         };
         TransferStudentRequest: {
             /** Format: int32 */
@@ -2783,10 +2783,10 @@ export interface components {
             /** Format: int32 */
             lessonId: number;
             tookPlace: boolean;
-            items?: components["schemas"]["AttendanceItem"][] | null;
+            items?: components["schemas"]["AttendanceItem"][];
         };
         UpdateGroupAttendanceRequest: {
-            items?: components["schemas"]["GridCellUpdate"][] | null;
+            items: components["schemas"]["GridCellUpdate"][];
         };
         UpdateGroupRequest: {
             name: string;
@@ -2816,7 +2816,7 @@ export interface components {
             pricePerTreatment: number;
             serviceDescription: string;
             insuranceCompany?: string | null;
-            lessonDates?: string[] | null;
+            lessonDates?: string[];
         };
         UpdateReportSettingsRequest: {
             reportSignature?: string | null;

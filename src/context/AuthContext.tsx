@@ -1,5 +1,5 @@
-import  { createContext, useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
-import type { AuthApi } from "./useAuth";
+import  { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
+import { AuthContext } from "./useAuth";
 import { getToken, removeToken, setToken } from "../api/tokenStorage";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { queryKeys } from "../api/queryKeys";
@@ -7,7 +7,6 @@ import { getMe } from "../api/auth/api";
 import type { AuthResponse } from "../types/typesDtos";
 import { setUnauthorizedHandler } from "../api/http";
 
-export const AuthContext=createContext<AuthApi | null>(null)
 interface AuthProviderProps{
     children:ReactNode
 }

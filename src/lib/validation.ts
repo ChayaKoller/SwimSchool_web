@@ -62,3 +62,8 @@ export const pastDate = z
   .refine((value) => value < todayIsrael(), {
     error: "התאריך צריך להיות בעבר",
   });
+ export  const wholeNumber = (min: number, max: number) =>
+  z.number({ error: "יש להזין מספר" })
+    .int({ error: "מספר שלם בלבד" })
+    .min(min, { error: `בין ${min} ל-${max}` })
+    .max(max, { error: `בין ${min} ל-${max}` });

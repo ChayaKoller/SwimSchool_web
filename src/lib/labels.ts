@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import type { HealthFund, Season, TreatmentType, UserRole } from "../types/typesDtos";
 
 export const healthFundLabels = {
@@ -32,4 +33,7 @@ export function toOptions<T extends string>(labels: Record<T, string>): Option<T
     value,
     label: labels[value],
   }));
+}
+export function isSeason(value: string): value is Season {
+  return value in seasonLabels;
 }

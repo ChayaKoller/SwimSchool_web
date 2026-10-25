@@ -11,16 +11,13 @@ export default function useIsSlow({isActive,ms = 5000}: UseIsSlowProps): boolean
 
   useEffect(() => {
 
-    if (!isActive) {
-      setIsSlow(false);
-      return;
-    }
+    if (!isActive) return;
 
     const mytimer = setTimeout(() => {
       setIsSlow(true);
     }, ms);
 
-    return () => clearTimeout(mytimer);
+   return () => { clearTimeout(mytimer); setIsSlow(false); };
 
   }, [isActive, ms]);
 
