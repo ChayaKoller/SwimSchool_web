@@ -13,6 +13,9 @@ import RequireRole from "./RequireRole";
 import StudentsPage from "../pages/StudentPage";
 import StudentFormPage from "../pages/StudentFormPage";
 import StudentDetailsPage from "../pages/StudentDetailsPage";
+import GroupsPage from "../pages/GroupsPage";
+import GroupFormPage from "../pages/GroupPageForm";
+import GroupDetailsPage from "../pages/GroupDetailsPage";
 
 export const router = createBrowserRouter([
   {
@@ -61,7 +64,11 @@ export const router = createBrowserRouter([
           {
             path: "/students/:id/edit",
             element: <StudentFormPage />
-          }
+          },
+          { path: "groups", element: <GroupsPage /> },
+          { path: "groups/new", element: <GroupFormPage /> },
+          { path: "groups/:id", element: <GroupDetailsPage /> },
+          { path: "groups/:id/edit", element: <GroupFormPage /> },
         ],
       },
     ],

@@ -3,7 +3,7 @@ import { Plus } from "lucide-react";
 import { useNavigate } from "react-router";
 import { useStudents } from "../api/students/hook";
 import { STUDENT_FILTER_DEFAULTS } from "../api/students/schema";
-import useGroups from "../api/groups/hook";
+
 import useDebounce from "../lib/useDebounce";
 import useUrlFilters from "../lib/useUrlFilters";
 import { formatMoney } from "../lib/format";
@@ -18,10 +18,11 @@ import Pagination from "../components/ui/Pagination";
 import Skeleton from "../components/ui/Skeleton";
 import ErrorState from "../components/ui/ErrorState";
 import EmptyState from "../components/ui/EmptyState";
+import { useGroups } from "../api/groups/hook";
 
 const PAGE_SIZE = 20;
 
-// החוב מוצג גם בטבלה וגם בכרטיס בטלפון, ולכן בפונקציה אחת
+
 function renderOwed(s: StudentListItemDto) {
   return s.amountOwed === 0 ? (
     <Badge tone="success">שולם</Badge>

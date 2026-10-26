@@ -61,13 +61,19 @@ export function formatMoney(amount: number): string {
 export function ageFrom(birthDate: string): number {
   return dayjs().diff(dayjs(birthDate), "year");
 }
-const LESSON_FORMAT = "[יום] dddd, DD/MM/YYYY HH:mm"
-export function formatLessonTime(utcValue){
-    return toIsrael(utcValue).locale("he").format(LESSON_FORMAT);
+
+const LESSON_FORMAT = "[יום] dddd, DD/MM/YYYY HH:mm";
+
+// "2026-11-01T15:00:00Z" -> "יום ראשון, 01/11/2026 17:00"
+export function formatLessonTime(utcValue: string): string {
+  return toIsrael(utcValue).locale("he").format(LESSON_FORMAT);
 }
-export function formatLocalLessonTime(localValue){
-  return dayjs(localValue).locale("he").format(LESSON_FORMAT)
+
+// "2026-11-01T17:00" (כבר בשעון ישראל) -> "יום ראשון, 01/11/2026 17:00"
+export function formatLocalLessonTime(localValue: string): string {
+  return dayjs(localValue).locale("he").format(LESSON_FORMAT);
 }
-export function isFuture(utcValue){
-  return dayjs.utc(utcValue).isAfter(dayjs())
+
+export function isFuture(utcValue: string): boolean {
+  return dayjs.utc(utcValue).isAfter(dayjs());
 }

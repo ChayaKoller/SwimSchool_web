@@ -1,4 +1,4 @@
-import dayjs from "dayjs";
+
 import type { HealthFund, Season, TreatmentType, UserRole } from "../types/typesDtos";
 
 export const healthFundLabels = {

@@ -27,11 +27,9 @@ export class ApiError extends Error {
   }
 }
 
-export function getErrorMessage(error: unknown): string {
-  if (error instanceof ApiError) {
-    return error.message;
-  }
 
+export function getErrorMessage(error: unknown): string {
+  if (error instanceof ApiError) return error.message;
   return "משהו השתבש, נסי שוב";
 }
 
