@@ -19,12 +19,15 @@ export const STUDENT_FILTER_DEFAULTS = {
   absent: "",
   includeInactive: "",
 };
+export const transferSchema = z.object({
+  newTeacherId: z.string().min(1, { error: "יש לבחור מורה" }),
+});
 
 export type StudentFilterValues = typeof STUDENT_FILTER_DEFAULTS;
 
-export type studentFormInput = z.input<typeof studentFormSchema>;   
-export type studentFormData  = z.output<typeof studentFormSchema>; 
-
+export type studentFormInput = z.input<typeof studentFormSchema>;
+export type studentFormData = z.output<typeof studentFormSchema>;
+export type TransferFormData = z.infer<typeof transferSchema>;
 
 export function toStudentFormValues(student: StudentDetailsDto): studentFormInput {
   return {
@@ -38,11 +41,11 @@ export function toStudentFormValues(student: StudentDetailsDto): studentFormInpu
     isActive: student.isActive,
   };
 }
-export function toCreateStudentRequest(values:studentFormData):CreateStudentRequest{
-     const { isActive: _isActive, ...request } = values;
+export function toCreateStudentRequest(values: studentFormData): CreateStudentRequest {
+  const { isActive: _isActive, ...request } = values;
   return request;
 }
-export function toUpdateStudentRequest(values:studentFormData):UpdateStudentRequest{
-const { identityNumber: _identityNumber, birthDate: _birthDate, ...request } = values;
-return request;
+export function toUpdateStudentRequest(values: studentFormData): UpdateStudentRequest {
+  const { identityNumber: _identityNumber, birthDate: _birthDate, ...request } = values;
+  return request;
 }

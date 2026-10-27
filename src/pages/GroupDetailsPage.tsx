@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { ArrowRight, Pencil, Plus, Trash2 } from "lucide-react";
+import { ArrowRight, Pencil, Plus, Trash2, UserPlus } from "lucide-react";
 import { useGroup } from "../api/groups/hook";
 import { useDeleteLesson } from "../api/lessons/hook";
 import { getErrorMessage, isNotFound } from "../api/apiError";
@@ -25,6 +25,7 @@ import ErrorState from "../components/ui/ErrorState";
 import LoadingState from "../components/ui/LoadingState";
 import AddLessonsModal from "../components/groups/AddLessonModal";
 import MoveLessonModal from "../components/groups/MoveLessonModal";
+import EnrollModal from "../components/enrollment/EnrollModal";
 
 export default function GroupDetailsPage() {
   const { id } = useParams();
@@ -43,6 +44,9 @@ export default function GroupDetailsPage() {
   const [addOpen, setAddOpen] = useState(false);
   const [movingLesson, setMovingLesson] = useState<LessonDto | null>(null);
   const [deletingLesson, setDeletingLesson] = useState<LessonDto | null>(null);
+  const [enrollOpen, setEnrollOpen] = useState(false);
+
+
 
   function confirmDeleteLesson() {
     if (!deletingLesson) return;
@@ -84,6 +88,11 @@ export default function GroupDetailsPage() {
 
   const g = group.data;
   const hasStudents = g.students.length > 0;
+  const enrollBlocked = !g.isActive
+    ? "הקבוצה אינה פעילה."
+    : g.freeSpots === 0
+      ? "הקבוצה מלאה. כדי לרשום תלמידה נוספת, יש להעלות את מספר המקומות בעדכון הקבוצה, או לבטל רישום קיים."
+      : null;
 
   const detailItems = [
     { label: "מחיר", value: <span className="tabular-nums">{formatMoney(g.price)}</span> },
@@ -102,8 +111,12 @@ export default function GroupDetailsPage() {
         title={g.name}
         actions={
           <>
+           
             <Button variant="secondary" icon={<Pencil />} onClick={() => navigate(`/groups/${g.id}/edit`)}>
               עדכון
+            </Button>
+            <Button icon={<UserPlus />} onClick={() => setEnrollOpen(true)} disabled={enrollBlocked !== null}>
+              רישום תלמידה
             </Button>
             {isTeacher && (
               <Button
@@ -132,6 +145,7 @@ export default function GroupDetailsPage() {
         {isTeacher && hasStudents && (
           <p className="text-xs text-slate-500">כדי למחוק את הקבוצה, יש לבטל קודם את הרישום של התלמידות.</p>
         )}
+        {enrollBlocked && <p className="text-xs text-slate-500">{enrollBlocked}</p>}  
       </div>
 
       <div className="flex flex-col gap-8">
@@ -168,7 +182,7 @@ export default function GroupDetailsPage() {
 
 
       {addOpen && <AddLessonsModal groupId={g.id} onClose={() => setAddOpen(false)} />}
-      {movingLesson && <MoveLessonModal lesson={movingLesson} onClose={() => setMovingLesson(null)} />} 
+      {movingLesson && <MoveLessonModal lesson={movingLesson} onClose={() => setMovingLesson(null)} />}
 
       <ConfirmDialog
         isOpen={deletingLesson !== null}
@@ -185,6 +199,12 @@ export default function GroupDetailsPage() {
       />
 
       {isTeacher && <DeleteGroupDialog group={g} isOpen={deleteOpen} onClose={() => setDeleteOpen(false)} />}
+      {enrollOpen && (
+
+
+        <EnrollModal onClose={() => setEnrollOpen(false)}
+          group={{ id: g.id, name: g.name, price: g.price }}></EnrollModal>
+      )}
     </div>
   );
 }

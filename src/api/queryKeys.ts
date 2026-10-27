@@ -10,6 +10,7 @@ export const queryKeys = {
   groups: {
     all: ["groups"] as const,
     list: (filter: Filter) => ["groups", filter] as const,
+    details: ["group"] as const,
     detail: (id: number) => ["group", id] as const,
   },
   lessons: {

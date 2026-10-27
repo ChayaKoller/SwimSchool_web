@@ -1,21 +1,21 @@
-import { Navigate, useLocation, useNavigate } from "react-router";
-import { Hourglass, LockKeyhole, LogIn, Mail } from "lucide-react";
-import { useAuth } from "../context/useAuth";
-import LoadingState from "../components/ui/LoadingState";
-import { useForm } from "react-hook-form";
-import { loginSchema, type loginSchemaData } from "../api/auth/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Hourglass, LockKeyhole, LogIn, Mail } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { Navigate, useLocation, useNavigate } from "react-router";
 import { useLogin } from "../api/auth/hook";
-import FormField from "../components/form/FormField";
-import FormError from "../components/form/FormError";
-import TextField from "../components/form/TextField";
-import Button from "../components/ui/Button";
-import PasswordField from "../components/form/PasswordField";
-import { useServerErrors } from "../components/form/useServerErrors";
-import useIsSlow from "../lib/useIsSlow";
-import logo from "../assets/sideLogo.png";
+import { loginSchema, type loginSchemaData } from "../api/auth/schema";
 import ring from "../assets/ring.png";
+import logo from "../assets/sideLogo.png";
 import snorkel from "../assets/snorkel.png";
+import FormError from "../components/form/FormError";
+import FormField from "../components/form/FormField";
+import PasswordField from "../components/form/PasswordField";
+import TextField from "../components/form/TextField";
+import { useServerErrors } from "../components/form/useServerErrors";
+import Button from "../components/ui/Button";
+import LoadingState from "../components/ui/LoadingState";
+import { useAuth } from "../context/useAuth";
+import useIsSlow from "../lib/useIsSlow";
 
 // בועות שעולות מהקרקעית. כל שורה = בועה אחת (מיקום, גודל, השהיה)
 const bubbles = [
@@ -118,7 +118,7 @@ const LoginPage = () => {
             <div className="border-b-[1.5px] border-line bg-[linear-gradient(180deg,#ffffff_0%,#dff8fc_100%)] px-8 pt-6 pb-5 text-center sm:px-10 md:pt-5 md:pb-4">
               <img src={logo} alt="האקווריום, בית ספר לשחייה" className="mx-auto h-20 w-auto" />
               <h1 className="mt-3 flex animate-inflate flex-col items-center text-5xl [animation-delay:0.5s]">
-                <span className="text-inflated bg-[linear-gradient(90deg,#8b3dff_0%,#ff2e88_55%,#ff7a3d_100%)]">שחיות</span>
+                <span className="text-inflated bg-[linear-gradient(90deg,#8b3dff_0%,#ff2e88_55%,#ff7a3d_100%)]">שחית</span>
                 <span className="text-inflated bg-[linear-gradient(90deg,#3d34d6_0%,#7b4dff_100%)]">בפיס</span>
               </h1>
             </div>

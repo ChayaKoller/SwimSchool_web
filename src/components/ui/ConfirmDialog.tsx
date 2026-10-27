@@ -10,6 +10,7 @@ type ConfirmDialogProps = {
   confirmText?: string;
   tone?: "danger" | "primary";
   isLoading?: boolean;
+  cancelText?:string
 };
 
 export default function ConfirmDialog({
@@ -21,6 +22,7 @@ export default function ConfirmDialog({
   confirmText = "אישור",
   tone = "danger",
   isLoading = false,
+  cancelText
 }: ConfirmDialogProps) {
   return (
     <Modal
@@ -30,7 +32,7 @@ export default function ConfirmDialog({
       footer={
         <>
           <Button variant="secondary" onClick={onClose} disabled={isLoading}>
-            ביטול
+            {cancelText}
           </Button>
           <Button variant={tone} onClick={onConfirm} isLoading={isLoading}>
             {confirmText}
