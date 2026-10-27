@@ -77,3 +77,11 @@ export function formatLocalLessonTime(localValue: string): string {
 export function isFuture(utcValue: string): boolean {
   return dayjs.utc(utcValue).isAfter(dayjs());
 }
+export function formatShortDate(utcValue:string): string {
+  return toIsrael(utcValue).format("DD/MM");
+}
+
+export function formatWeekRange(): string {
+  const today = dayjs().tz(ISRAEL_TZ);
+  return `${today.format("DD/MM")} עד ${today.add(6, "day").format("DD/MM")}`;
+}

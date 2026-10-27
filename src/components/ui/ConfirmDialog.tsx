@@ -22,7 +22,7 @@ export default function ConfirmDialog({
   confirmText = "אישור",
   tone = "danger",
   isLoading = false,
-  cancelText
+  cancelText="ביטול"
 }: ConfirmDialogProps) {
   return (
     <Modal

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { ArrowRight, Pencil, Plus, Trash2, UserPlus } from "lucide-react";
+import { ArrowRight, ClipboardCheck, Pencil, Plus, Trash2, UserPlus } from "lucide-react";
 import { useGroup } from "../api/groups/hook";
 import { useDeleteLesson } from "../api/lessons/hook";
 import { getErrorMessage, isNotFound } from "../api/apiError";
@@ -11,9 +11,12 @@ import { seasonLabels } from "../lib/labels";
 import useGoBack from "../lib/useGoBack";
 import type { LessonDto } from "../types/typesDtos";
 import PageHeader from "../components/layout/PageHeader";
+import EnrollModal from "../components/enrollment/EnrollModal";
+import AddLessonsModal from "../components/groups/AddLessonsModal";
 import DeleteGroupDialog from "../components/groups/DeleteGroupDialog";
-import GroupLessonsTable from "../components/groups/GroopLessonsTable";
+import GroupLessonsTable from "../components/groups/GroupLessonsTable";
 import GroupStudentsTable from "../components/groups/GroupStudentsTable";
+import MoveLessonModal from "../components/groups/MoveLessonModal";
 import OccupancyBar from "../components/groups/OccupancyBar";
 import Badge from "../components/ui/Badge";
 import Button from "../components/ui/Button";
@@ -23,9 +26,6 @@ import DetailList from "../components/ui/DetailList";
 import EmptyState from "../components/ui/EmptyState";
 import ErrorState from "../components/ui/ErrorState";
 import LoadingState from "../components/ui/LoadingState";
-import AddLessonsModal from "../components/groups/AddLessonModal";
-import MoveLessonModal from "../components/groups/MoveLessonModal";
-import EnrollModal from "../components/enrollment/EnrollModal";
 
 export default function GroupDetailsPage() {
   const { id } = useParams();
@@ -39,14 +39,11 @@ export default function GroupDetailsPage() {
   const goBack = useGoBack("/groups");
 
   // החלונות: false / null = סגור
-  // ה-_ זמני: עד חלק ו אין שימוש ב-addOpen וב-movingLesson. כשמחזירים את החלונות, מורידים אותו
+  const [enrollOpen, setEnrollOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [addOpen, setAddOpen] = useState(false);
   const [movingLesson, setMovingLesson] = useState<LessonDto | null>(null);
   const [deletingLesson, setDeletingLesson] = useState<LessonDto | null>(null);
-  const [enrollOpen, setEnrollOpen] = useState(false);
-
-
 
   function confirmDeleteLesson() {
     if (!deletingLesson) return;
@@ -88,6 +85,8 @@ export default function GroupDetailsPage() {
 
   const g = group.data;
   const hasStudents = g.students.length > 0;
+
+  // למה אי אפשר לרשום עכשיו. null = אפשר
   const enrollBlocked = !g.isActive
     ? "הקבוצה אינה פעילה."
     : g.freeSpots === 0
@@ -111,12 +110,11 @@ export default function GroupDetailsPage() {
         title={g.name}
         actions={
           <>
-           
-            <Button variant="secondary" icon={<Pencil />} onClick={() => navigate(`/groups/${g.id}/edit`)}>
-              עדכון
-            </Button>
             <Button icon={<UserPlus />} onClick={() => setEnrollOpen(true)} disabled={enrollBlocked !== null}>
               רישום תלמידה
+            </Button>
+            <Button variant="secondary" icon={<Pencil />} onClick={() => navigate(`/groups/${g.id}/edit`)}>
+              עדכון
             </Button>
             {isTeacher && (
               <Button
@@ -129,11 +127,16 @@ export default function GroupDetailsPage() {
                 מחיקה
               </Button>
             )}
+            {isTeacher && (
+              <Button variant="secondary" icon={<ClipboardCheck />} onClick={() => navigate(`/groups/${g.id}/attendance`)}>
+                טבלת נוכחות
+              </Button>
+            )}
           </>
         }
       />
 
-      {/* שורת התגיות מתחת לשם, כמו בדף התלמידה */}
+      {/* שורת התגיות מתחת לשם, ומתחתיה ההסברים לכפתורים הנעולים */}
       <div className="-mt-3 mb-6 flex flex-col gap-2">
         <div className="flex flex-wrap items-center gap-2">
           <Badge tone="info">
@@ -142,10 +145,10 @@ export default function GroupDetailsPage() {
           {!g.isActive && <Badge tone="neutral">לא פעילה</Badge>}
           {g.freeSpots === 0 && <Badge tone="danger">מלאה</Badge>}
         </div>
+        {enrollBlocked && <p className="text-xs text-slate-500">{enrollBlocked}</p>}
         {isTeacher && hasStudents && (
           <p className="text-xs text-slate-500">כדי למחוק את הקבוצה, יש לבטל קודם את הרישום של התלמידות.</p>
         )}
-        {enrollBlocked && <p className="text-xs text-slate-500">{enrollBlocked}</p>}  
       </div>
 
       <div className="flex flex-col gap-8">
@@ -180,7 +183,13 @@ export default function GroupDetailsPage() {
         </section>
       </div>
 
-
+      {/* החלונות עם טופס: קיימים רק כשהם פתוחים, כדי שכל פתיחה תתחיל מטופס נקי */}
+      {enrollOpen && (
+        <EnrollModal
+          onClose={() => setEnrollOpen(false)}
+          group={{ id: g.id, name: g.name, price: g.price }}
+        />
+      )}
       {addOpen && <AddLessonsModal groupId={g.id} onClose={() => setAddOpen(false)} />}
       {movingLesson && <MoveLessonModal lesson={movingLesson} onClose={() => setMovingLesson(null)} />}
 
@@ -199,12 +208,6 @@ export default function GroupDetailsPage() {
       />
 
       {isTeacher && <DeleteGroupDialog group={g} isOpen={deleteOpen} onClose={() => setDeleteOpen(false)} />}
-      {enrollOpen && (
-
-
-        <EnrollModal onClose={() => setEnrollOpen(false)}
-          group={{ id: g.id, name: g.name, price: g.price }}></EnrollModal>
-      )}
     </div>
   );
 }

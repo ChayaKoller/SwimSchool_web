@@ -19,6 +19,8 @@ export const queryKeys = {
   attendance: {
     byLesson: (lessonId: number) => ["attendance", "lesson", lessonId] as const,
     byGroup: (groupId: number) => ["attendance", "group", groupId] as const,
+    all:['attendance'] as const,
+    lesson:(lessonId:number)=>['attendance', 'lesson', lessonId]
   },
   reports: {
     all: ["reports"] as const,

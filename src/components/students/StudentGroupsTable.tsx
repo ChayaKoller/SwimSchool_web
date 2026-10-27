@@ -10,14 +10,13 @@ import EmptyState from "../ui/EmptyState";
 
 type StudentGroupsTableProps = {
   groups: StudentGroupDto[];
-  onUpdatePayment: (row: StudentGroupDto) => void
-  onCancel: (row: StudentGroupDto) => void
-  onEnroll: () => void
-
+  onUpdatePayment: (row: StudentGroupDto) => void;
+  onCancel: (row: StudentGroupDto) => void;
+  // לא מועבר כשהתלמידה בארכיון, ואז אין כפתור בהודעה הריקה
+  onEnroll?: () => void;
 };
 
 const balanceOf = (g: StudentGroupDto) => g.amountDue - g.amountPaid;
-// ...
 
 function actionsColumn(
   onUpdatePayment: (row: StudentGroupDto) => void,
@@ -27,7 +26,7 @@ function actionsColumn(
     key: "actions",
     header: "פעולות",
     render: (g) => (
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-1 whitespace-nowrap">
         <Button
           variant="ghost"
           icon={<Wallet />}
@@ -80,38 +79,42 @@ const baseColumns: Column<StudentGroupDto>[] = [
   },
 ];
 
-
 export default function StudentGroupsTable({ groups, onUpdatePayment, onCancel, onEnroll }: StudentGroupsTableProps) {
   const totalOwed = groups.reduce((sum, g) => sum + balanceOf(g), 0);
   const columns = [...baseColumns, actionsColumn(onUpdatePayment, onCancel)];
+
   return (
     <section className="flex flex-col gap-3">
-      <h2 className="text-lg font-bold text-ink">קבוצות ותשלומים</h2>
-      {groups.length === 0 ?
+      <h2 className="text-lg font-bold text-ink">
+        קבוצות ותשלומים <span className="text-sm font-medium text-ink/60 tabular-nums">({groups.length})</span>
+      </h2>
 
+      {groups.length === 0 ? (
         <EmptyState
           title="התלמידה לא רשומה לאף קבוצה"
           action={
-            <Button icon={<UserPlus />} onClick={onEnroll}>
-              רישום לקבוצה
-            </Button>
+            onEnroll && (
+              <Button icon={<UserPlus />} onClick={onEnroll}>
+                רישום לקבוצה
+              </Button>
+            )
           }
         />
-        : (
-          <DataTable
-            columns={columns}
-            rows={groups}
-            getRowKey={(g) => g.enrollmentId}
-            footer={
-              <>
-                סה"כ חוב:
-                <span className={totalOwed === 0 ? "text-success" : "text-danger tabular-nums"}>
-                  {totalOwed === 0 ? "אין חוב ✓" : formatMoney(totalOwed)}
-                </span>
-              </>
-            }
-          />
-        )}
+      ) : (
+        <DataTable
+          columns={columns}
+          rows={groups}
+          getRowKey={(g) => g.enrollmentId}
+          footer={
+            <>
+              סה"כ חוב:{" "}
+              <span className={totalOwed === 0 ? "font-semibold text-success" : "font-semibold text-danger tabular-nums"}>
+                {totalOwed === 0 ? "אין חוב ✓" : formatMoney(totalOwed)}
+              </span>
+            </>
+          }
+        />
+      )}
     </section>
   );
 }

@@ -1,9 +1,12 @@
-import { Pencil, Trash2 } from "lucide-react";
+import { ClipboardCheck, Pencil, Trash2 } from "lucide-react";
 import { formatLessonTime, isFuture } from "../../lib/format";
 import type { LessonDto } from "../../types/typesDtos";
 import Badge from "../ui/Badge";
 import Button from "../ui/Button";
 import DataTable, { type Column } from "../ui/DataTable";
+import { lessonStatus } from "../../lib/attendance";
+import { Link } from "react-router";
+
 
 export type GroupLessonsTableProps = {
     lessons: LessonDto[];
@@ -11,16 +14,6 @@ export type GroupLessonsTableProps = {
     onMove: (lesson: LessonDto) => void;
     onDelete: (lesson: LessonDto) => void;
 };
-
-type BadgeTone = "success" | "warning" | "neutral";
-
-
-function lessonStatus(lesson: LessonDto): { tone: BadgeTone; label: string } {
-    if (isFuture(lesson.startTime)) return { tone: "neutral", label: "עתידי" };
-    if (lesson.tookPlace) return { tone: "success", label: "התקיים" };
-    return { tone: "warning", label: "טרם סומן" };
-}
-
 
 const baseColumns: Column<LessonDto>[] = [
     {
@@ -48,10 +41,22 @@ function actionsColumn(onMove: (lesson: LessonDto) => void, onDelete: (lesson: L
     return {
         key: "actions",
         header: "פעולות",
-        render: (l) =>
-            l.tookPlace ? null : (
-                <div className="flex items-center gap-1">
-                    <Button
+        render: (l) => (
+            <div className="flex items-center gap-1">
+                {!isFuture(l.startTime) && (
+                    <Link
+                        to={`/lessons/${l.lessonId}/attendance`}
+                        aria-label={`נוכחות לשיעור של ${formatLessonTime(l.startTime)}`}
+                        className="inline-flex min-h-8 items-center gap-2 rounded-full px-2.5 text-sm font-semibold whitespace-nowrap text-primary-text transition hover:bg-primary/10 [&_svg]:size-4"
+                    >
+                        <ClipboardCheck aria-hidden />
+                        נוכחות
+                    </Link>
+                )}
+                {!l.tookPlace && (
+                    <>
+                       
+                        <Button
                         variant="ghost"
                         icon={<Pencil />}
                         aria-label={`הזזת השיעור של ${formatLessonTime(l.startTime)}`}
@@ -69,8 +74,11 @@ function actionsColumn(onMove: (lesson: LessonDto) => void, onDelete: (lesson: L
                     >
                         מחיקה
                     </Button>
-                </div>
-            ),
+                    </>
+                )}
+            </div>
+        ),
+        
     };
 }
 export default function GroupLessonsTable({ lessons, canManage, onMove, onDelete }: GroupLessonsTableProps) {

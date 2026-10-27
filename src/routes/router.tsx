@@ -16,6 +16,8 @@ import StudentDetailsPage from "../pages/StudentDetailsPage";
 import GroupsPage from "../pages/GroupsPage";
 import GroupFormPage from "../pages/GroupPageForm";
 import GroupDetailsPage from "../pages/GroupDetailsPage";
+import LessonAttendancePage from "../pages/LessonAttendancePage";
+import GroupAttendancePage from "../pages/GroupAttendancePage";
 
 export const router = createBrowserRouter([
   {
@@ -44,6 +46,14 @@ export const router = createBrowserRouter([
                 path: "/schedule",
                 element: <SchedulePage />,
               },
+              {
+                path: "/lessons/:id/attendance",
+                element: <LessonAttendancePage />,
+              },
+             {
+                path: "/groups/:id/attendance",
+                element: <GroupAttendancePage/>,
+              } 
             ],
           },
           {

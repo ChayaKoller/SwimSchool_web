@@ -13,3 +13,7 @@ export async function updateLesson({body,id}:{id:number,body:UpdateLessonRequest
 export async function deleteLesson( id :number ){
     await http.delete(`/lessons/${id}` )
 }
+export async function getWeekLessons(){
+    const {data}=await http.get<LessonDto[]>(`/lessons/week`)
+    return data
+}

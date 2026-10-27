@@ -1,6 +1,6 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { queryKeys } from "../queryKeys";
-import { addLessons, deleteLesson, updateLesson } from "./api";
+import { addLessons, deleteLesson, getWeekLessons, updateLesson } from "./api";
 
 function useRefreshLessons(groupId: number) {
   const queryClient = useQueryClient();
@@ -35,4 +35,11 @@ export function useDeleteLesson(groupId:number){
         onSuccess: refresh
 
     })
+}
+export function useWeekLessons(){
+    return useQuery({
+        queryKey: queryKeys.lessons.week,
+        queryFn: getWeekLessons,
+       
+      });
 }
