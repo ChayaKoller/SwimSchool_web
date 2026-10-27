@@ -1,4 +1,4 @@
-import type { Season } from "./typesDtos";
+import type { HealthFund, Season } from "./typesDtos";
 
 export type StudentFilter = {
   name?: string;
@@ -16,4 +16,18 @@ export type GroupFilter = {
   isActive?: boolean;
   page: number;
   pageSize: number;
+};
+export type ReportFilter = {
+  search?: string;
+  healthFund?: HealthFund;
+  fromDate?: string;
+  toDate?: string;
+  page: number;
+  pageSize: number;
+};
+
+export type AttendedDatesFilter = {
+  groupId?: number;
+  fromDate?: string;
+  toDate?: string;
 };

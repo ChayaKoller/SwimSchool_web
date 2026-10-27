@@ -37,3 +37,6 @@ export function toOptions<T extends string>(labels: Record<T, string>): Option<T
 export function isSeason(value: string): value is Season {
   return value in seasonLabels;
 }
+export function isHealthFund(value: string): value is HealthFund {
+  return value in healthFundLabels;
+}

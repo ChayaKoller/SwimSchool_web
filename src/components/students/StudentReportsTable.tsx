@@ -1,27 +1,15 @@
-import type { ReportDto } from "../../types/typesDtos";
-import { useStudentReports } from "../../api/students/hook";
-import { formatDateTime, formatMoney } from "../../lib/format";
-import { healthFundLabels, treatmentTypeLabels } from "../../lib/labels";
-import DataTable, { type Column } from "../ui/DataTable";
+
 import LoadingState from "../ui/LoadingState";
 import ErrorState from "../ui/ErrorState";
 import EmptyState from "../ui/EmptyState";
+import { useStudentReports } from "../../api/students/hook";
+import ReportsTable from "../reports/ReportsTable";
 
 type StudentReportsTableProps = {
   studentId: number;
 };
 
-const columns: Column<ReportDto>[] = [
-  { key: "issuedAt", header: "הונפק", render: (r) => <span className="tabular-nums">{formatDateTime(r.issuedAt)}</span> },
-  { key: "payer", header: "משלם", render: (r) => r.insuranceCompany ?? healthFundLabels[r.healthFund] },
-  { key: "treatmentType", header: "סוג", render: (r) => treatmentTypeLabels[r.treatmentType] },
-  { key: "count", header: "טיפולים", render: (r) => <span className="tabular-nums">{r.lessonDates.length}</span> },
-  {
-    key: "totalAmount",
-    header: 'סה"כ',
-    render: (r) => <span className="font-semibold text-line tabular-nums">{formatMoney(r.totalAmount)}</span>,
-  },
-];
+
 
 export default function StudentReportsTable({ studentId }: StudentReportsTableProps) {
   const reports = useStudentReports(studentId);
@@ -33,7 +21,8 @@ export default function StudentReportsTable({ studentId }: StudentReportsTablePr
 
     if (reports.data.length === 0) return <EmptyState title="עוד לא הופקו דוחות" />;
 
-    return <DataTable columns={columns} rows={reports.data} getRowKey={(r) => r.id} />;
+    // return <DataTable columns={columns} rows={reports.data} getRowKey={(r) => r.id} />;
+    return <ReportsTable reports={reports.data} showStudent={false} />;
   }
 
   return (

@@ -1,4 +1,4 @@
-import { ArrowLeftRight, ArrowRight, Pencil, Trash2, UserPlus } from "lucide-react";
+import { ArrowLeftRight, ArrowRight, FilePlus2, Pencil, Trash2, UserPlus } from "lucide-react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { getErrorMessage, isNotFound } from "../api/apiError";
@@ -110,6 +110,9 @@ export default function StudentDetailsPage() {
           <>
             <Button icon={<UserPlus />} onClick={() => setEnrollOpen(true)} disabled={!s.isActive}>
               רישום לקבוצה
+            </Button>
+            <Button variant="secondary" icon={<FilePlus2 />} onClick={() => navigate(`/reports/new?studentId=${s.id}`)}>
+              דוח חדש
             </Button>
             <Button variant="secondary" icon={<Pencil />} onClick={() => navigate(`/students/${s.id}/edit`)}>
               עריכה

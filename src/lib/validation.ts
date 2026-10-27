@@ -4,18 +4,18 @@ import { todayIsrael } from "./format";
 export const REQUIRED = "שדה חובה";
 
 // טקסט חובה: מוריד רווחים בהתחלה ובסוף, ולא ריק
-export const requiredText = (max: number) =>z
-    .string()
-    .trim()
-    .min(1, { error: REQUIRED })
-    .max(max, { error: `עד ${max} תווים` });
+export const requiredText = (max: number) => z
+  .string()
+  .trim()
+  .min(1, { error: REQUIRED })
+  .max(max, { error: `עד ${max} תווים` });
 
 // טקסט רשות: ריק הופך ל-null (השרת מצפה ל-null ולא ל-"")
 export const optionalText = (max: number) => z
-    .string()
-    .trim()
-    .max(max, { error: `עד ${max} תווים` })
-    .transform((value) => value || null);
+  .string()
+  .trim()
+  .max(max, { error: `עד ${max} תווים` })
+  .transform((value) => value || null);
 
 // ת"ז: בדיוק 9 ספרות
 export const identityNumber = z.string().trim().regex(/^\d{9}$/, { error: 'ת"ז צריכה להכיל 9 ספרות' });
@@ -62,8 +62,13 @@ export const pastDate = z
   .refine((value) => value < todayIsrael(), {
     error: "התאריך צריך להיות בעבר",
   });
- export  const wholeNumber = (min: number, max: number) =>
+export const wholeNumber = (min: number, max: number) =>
   z.number({ error: "יש להזין מספר" })
     .int({ error: "מספר שלם בלבד" })
     .min(min, { error: `בין ${min} ל-${max}` })
     .max(max, { error: `בין ${min} ל-${max}` });
+// מחיר לטיפול בדוח ובהגדרות: 1 עד 10,000 (כמו בשרת). בטופס: valueAsNumber
+export const treatmentPrice = z
+  .number({ error: "יש להזין מחיר" })
+  .min(1, { error: "המחיר צריך להיות בין 1 ל-10,000" })
+  .max(10000, { error: "המחיר צריך להיות בין 1 ל-10,000" });

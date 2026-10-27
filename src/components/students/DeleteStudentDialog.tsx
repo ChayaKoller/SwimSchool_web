@@ -29,7 +29,7 @@ function handleConfirm() {
 }
 return (
     <ConfirmDialog tone="danger" title="מחיקת תלמידה" confirmText="מחיקה" 
-    message={` למחוק את${student.fullName}? אם יש לה היסטוריה (רישומים, נוכחות או דוחות), היא תועבר לארכיון והרישומים הפעילים שלה יבוטלו. אחרת היא תימחק לגמרי.`}
+    message={` למחוק את ${student.fullName}? אם יש לה היסטוריה (רישומים, נוכחות או דוחות), היא תועבר לארכיון והרישומים הפעילים שלה יבוטלו. אחרת היא תימחק לגמרי.`}
     onClose={onClose}
     onConfirm={handleConfirm}
     isOpen={isOpen}

@@ -15,11 +15,20 @@ http.interceptors.request.use((config) => {
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
+// שגיאה של בקשת קובץ מגיעה כ-Blob. קוראים אותה בחזרה ל-JSON
+async function readErrorData(data: unknown) {
+  if (!(data instanceof Blob)) return data;
+  try {
+    return JSON.parse(await data.text());
+  } catch {
+    return null;
+  }
+}
 
 // טיפול בשגיאות
 http.interceptors.response.use(
   (response) => response,
-  (error: unknown) => {
+  async(error: unknown) => {
     // שגיאה שלא מ-axios = באג בקוד, מעבירים הלאה כמו שהיא
     if (!axios.isAxiosError(error)) {
       return Promise.reject(error);
@@ -37,7 +46,7 @@ http.interceptors.response.use(
       unauthorizedHandler?.();
     }
 
-    const data = response.data;
+    const data = await readErrorData(response.data);
     const isServerError =
       typeof data?.code === "string" && typeof data?.message === "string";
 
