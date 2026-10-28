@@ -10,7 +10,7 @@ import type {
   Season,
   UpdateGroupRequest,
 } from "../../types/typesDtos";
- 
+
 export const groupFormSchema = z
   .object({
     name: requiredText(100),
@@ -50,8 +50,6 @@ export const groupFormSchema = z
   });
  
 export type GroupFormValues = z.infer<typeof groupFormSchema>;
- 
-
 export function currentSeason(): Season {
   const month = new Date().getMonth() + 1;
   if (month === 12 || month <= 2) return "Winter";
@@ -59,8 +57,6 @@ export function currentSeason(): Season {
   if (month <= 8) return "Summer";
   return "Autumn";
 }
- 
-
 export function getGroupDefaults(group?: GroupDetailsDto): DefaultValues<GroupFormValues> {
   if (!group) {
     return {
@@ -88,8 +84,6 @@ export function getGroupDefaults(group?: GroupDetailsDto): DefaultValues<GroupFo
     lessonTimes: [],
   };
 }
- 
-
 export function toCreateGroupRequest(values: GroupFormValues): CreateGroupRequest {
   const group = {
     name: values.name,

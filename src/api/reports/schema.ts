@@ -18,7 +18,7 @@ function checkReportDates(rows: DateRow[], ctx: z.RefinementCtx) {
   const today = todayIsrael();
   const seen = new Set<string>();
   rows.forEach((row, index) => {
-    if (!row.date) return;                               // שורה ריקה: לא נשלחת, ואין מה לבדוק
+    if (!row.date) return;                            
     if (row.date > today) {
       ctx.addIssue({ code: "custom", path: [index, "date"], message: "אי אפשר להכניס תאריך עתידי" });
     } else if (seen.has(row.date)) {
@@ -70,9 +70,6 @@ export function getReportDefaults(
 
 
     }
-
-    
-    
 }
 export function priceFor(type: TreatmentType, settings: ReportSettingsDto): number | null {
   return type === "Group" ? settings.defaultGroupPrice : settings.defaultIndividualPrice;
@@ -114,7 +111,6 @@ export function toReportSettingsFormValues(settings: ReportSettingsDto): ReportS
     defaultTreatmentsCount: settings.defaultTreatmentsCount,
   };
 }
-
 // ערכי הטופס -> הבקשה לשרת
 export function toUpdateReportSettingsRequest(values: ReportSettingsFormValues): UpdateReportSettingsRequest {
   return {

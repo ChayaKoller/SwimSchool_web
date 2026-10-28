@@ -1,5 +1,5 @@
-import {z} from "zod";
-import {password,REQUIRED,requiredEmail} from "../../lib/validation"
+import { z } from "zod";
+import { newPasswordFields, password, passwordsMatch, passwordsMismatch, REQUIRED, requiredEmail } from "../../lib/validation";
 
 export  const loginSchema=z.object({
  email:requiredEmail,
@@ -9,13 +9,9 @@ export  const loginSchema=z.object({
 export const changePasswordSchema = z
   .object({
     currentPassword: z.string().min(1, { error: REQUIRED }),
-    newPassword: password,
-    confirmPassword: z.string().min(1, { error: REQUIRED }),
+    ...newPasswordFields,
   })
-  .refine((data) => data.newPassword === data.confirmPassword, {
-    error: "הסיסמאות אינן תואמות",
-    path: ["confirmPassword"],
-  });
+  .refine(passwordsMatch, passwordsMismatch);
 
 export type  loginSchemaData=z.infer<typeof loginSchema>;
 export type  changePasswordSchemaData=z.infer<typeof changePasswordSchema>;

@@ -13,6 +13,7 @@ import TextArea from "../form/TextArea";
 import Checkbox from "../form/Checkbox";
 import Button from "../ui/Button";
 import Card from "../ui/Card";
+import { createFieldProps } from "../form/fieldProps";
 
 export type StudentFormProps = {
   defaultValues: DefaultValues<studentFormInput>;
@@ -32,6 +33,7 @@ export default function StudentForm({ defaultValues, isEdit, onSubmit, onCancel 
     control,
     formState: { errors, isSubmitting, isDirty },
   } = useForm<studentFormInput, unknown, studentFormData>({ resolver: zodResolver(studentFormSchema), defaultValues });
+  const fieldProps = createFieldProps(register, errors);
 
   const { handleServerError, formError } = useServerErrors(setError, CODE_TO_FIELD);
 
@@ -41,14 +43,6 @@ export default function StudentForm({ defaultValues, isEdit, onSubmit, onCancel 
     } catch (error) {
       handleServerError(error);
     }
-  });
-
-  // אותן תכונות לכל שדה: id, חיבור להודעה של FormField, אדום בשגיאה, ו-register
-  const fieldProps = (name: keyof studentFormInput) => ({
-    id: name,
-    "aria-describedby": `${name}-description`,
-    invalid: Boolean(errors[name]),
-    ...register(name),
   });
 
   const placementLength = (useWatch({ control, name: "placementRequest" }) ?? "").length;

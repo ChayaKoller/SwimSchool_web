@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, type RegisterOptions } from "react-hook-form";
+import { useForm  } from "react-hook-form";
 import { Save } from "lucide-react";
 import type { ReportSettingsDto } from "../../types/typesDtos";
 import {
@@ -18,12 +18,11 @@ import TextArea from "../form/TextArea";
 import TextField from "../form/TextField";
 import Button from "../ui/Button";
 import Card from "../ui/Card";
+import { createFieldProps } from "../form/fieldProps";
 
 export type ReportSettingsFormProps = {
   settings: ReportSettingsDto;
 };
-
-type FieldName = keyof ReportSettingsFormValues;
 
 export default function ReportSettingsForm({ settings }: ReportSettingsFormProps) {
   const {
@@ -36,6 +35,7 @@ export default function ReportSettingsForm({ settings }: ReportSettingsFormProps
     resolver: zodResolver(reportSettingsSchema),
     defaultValues: toReportSettingsFormValues(settings),
   });
+  const fieldProps = createFieldProps(register, errors);
 
   const { handleServerError, formError } = useServerErrors(setError);
   const updateSettings = useUpdateReportSettings();
@@ -51,13 +51,6 @@ export default function ReportSettingsForm({ settings }: ReportSettingsFormProps
     }
   });
 
-  // אותן תכונות לכל שדה: id, חיבור להודעה של FormField, אדום בשגיאה, ו-register
-  const fieldProps = (name: FieldName, options?: RegisterOptions<ReportSettingsFormValues, FieldName>) => ({
-    id: name,
-    "aria-describedby": `${name}-description`,
-    invalid: Boolean(errors[name]),
-    ...register(name, options),
-  });
 
   return (
     <Card title="הגדרות הדוח" className="max-w-2xl">

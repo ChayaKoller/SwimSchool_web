@@ -1,4 +1,4 @@
-import { FormProvider, useForm, useWatch, type DefaultValues, type RegisterOptions } from "react-hook-form";
+import { FormProvider, useForm, useWatch, type DefaultValues } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus, Save } from "lucide-react";
 import { groupFormSchema, weeklyTimes, type GroupFormValues } from "../../api/groups/schema";
@@ -15,6 +15,7 @@ import Button from "../ui/Button";
 import Card from "../ui/Card";
 import LessonTimesField from "./LessonTimesField";
 import LessonPreview from "./LessonPreview";
+import { createFieldProps } from "../form/fieldProps";
 
 export type GroupFormProps = {
   defaultValues: DefaultValues<GroupFormValues>;
@@ -23,7 +24,6 @@ export type GroupFormProps = {
   onSubmit: (values: GroupFormValues) => Promise<unknown>;
   onCancel: () => void;
 };
-type FieldName = "name" | "year" | "season" | "price" | "maxStudents" | "firstLessonAt" | "weeklyCount";
 
 const CODE_TO_FIELD = { MAX_BELOW_ENROLLED: "maxStudents" } as const;
 const SEASON_OPTIONS = toOptions(seasonLabels);
@@ -41,6 +41,7 @@ export default function GroupForm({ defaultValues, isEdit, enrolledCount, onSubm
     control,
     formState: { errors, isSubmitting, isDirty },
   } = methods;
+  const fieldProps = createFieldProps(register, errors);
 
   const { handleServerError, formError } = useServerErrors(setError, CODE_TO_FIELD);
 
@@ -52,12 +53,7 @@ export default function GroupForm({ defaultValues, isEdit, enrolledCount, onSubm
     }
   });
 
-  const fieldProps = (name: FieldName, options?: RegisterOptions<GroupFormValues, FieldName>) => ({
-    id: name,
-    "aria-describedby": `${name}-description`,
-    invalid: Boolean(errors[name]),
-    ...register(name, options),
-  });
+
 
   const [mode, season, year, firstLessonAt, weeklyCount, lessonTimes] = useWatch({
     control,

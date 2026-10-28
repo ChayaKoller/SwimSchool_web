@@ -21,6 +21,7 @@ import GroupAttendancePage from "../pages/GroupAttendancePage";
 import SettingsPage from "../pages/SettingsPage";
 import ReportsPage from "../pages/ReportsPage";
 import ReportFormPage from "../pages/ReportFormPage";
+import SecretariesPage from "../pages/SecretariesPage";
 
 export const router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ export const router = createBrowserRouter([
                {
                 path: "/settings",
                 element: <SettingsPage/>,
+              } ,
+               {
+                path: "/secretaries",
+                element: <SecretariesPage/>,
               } 
             ],
           },

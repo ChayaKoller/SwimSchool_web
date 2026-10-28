@@ -1,9 +1,6 @@
 import type { StudentFilter } from "../../types/types";
 import type { CreateStudentRequest, ReportDto,  StudentDetailsDto, StudentListItemDtoPagedResult, TransferStudentRequest, UpdateStudentRequest } from "../../types/typesDtos";
 import { http } from "../http";
-
-
-
 export async function getStudents(filter:StudentFilter){
     const {data}=await http.get<StudentListItemDtoPagedResult>("/students",{params:filter})
     return data

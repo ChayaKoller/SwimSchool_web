@@ -26,13 +26,10 @@ export class ApiError extends Error {
     this.traceId = traceId;
   }
 }
-
-
 export function getErrorMessage(error: unknown): string {
   if (error instanceof ApiError) return error.message;
   return "משהו השתבש, נסי שוב";
 }
-
 export const NETWORK_ERROR = new ApiError({
   status: 0,
   code: "NETWORK_ERROR",

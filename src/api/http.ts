@@ -15,7 +15,7 @@ http.interceptors.request.use((config) => {
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
-// שגיאה של בקשת קובץ מגיעה כ-Blob. קוראים אותה בחזרה ל-JSON
+
 async function readErrorData(data: unknown) {
   if (!(data instanceof Blob)) return data;
   try {

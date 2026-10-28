@@ -20,8 +20,7 @@ export const optionalText = (max: number) => z
 // ת"ז: בדיוק 9 ספרות
 export const identityNumber = z.string().trim().regex(/^\d{9}$/, { error: 'ת"ז צריכה להכיל 9 ספרות' });
 
-// טלפון: חובה, עד 20 תווים (כמו בשרת)
-export const phone = requiredText(20);
+
 
 // אימייל רשות: ריק -> null, אחרת אימייל תקין עד 254 תווים
 export const optionalEmail = z
@@ -38,6 +37,7 @@ export const requiredEmail = z
   .string()
   .trim()
   .min(1, { error: REQUIRED })
+  .max(254, { error: "עד 254 תווים" })
   .refine((value) => z.email().safeParse(value).success, {
     error: "כתובת אימייל לא תקינה",
   });
@@ -72,3 +72,16 @@ export const treatmentPrice = z
   .number({ error: "יש להזין מחיר" })
   .min(1, { error: "המחיר צריך להיות בין 1 ל-10,000" })
   .max(10000, { error: "המחיר צריך להיות בין 1 ל-10,000" });
+// טלפון: חובה, עד 20 תווים, ורק תווים של טלפון (כמו [Phone] בשרת)
+export const phone = requiredText(20).regex(/^\+?[\d\s().-]*\d[\d\s().-]*$/, { error: "מספר טלפון לא תקין" });
+// שני השדות של סיסמה חדשה: החלפת סיסמה, מזכירה חדשה, וסיסמה חדשה למזכירה
+export const newPasswordFields = {
+  newPassword: password,
+  confirmPassword: z.string().min(1, { error: REQUIRED }),
+};
+
+// הבדיקה שהאימות זהה לסיסמה, וההודעה שלה. משתמשים בהם ב-.refine(passwordsMatch, passwordsMismatch)
+export function passwordsMatch(values: { newPassword: string; confirmPassword: string }) {
+  return values.newPassword === values.confirmPassword;
+}
+export const passwordsMismatch = { error: "הסיסמאות אינן תואמות", path: ["confirmPassword"] };
