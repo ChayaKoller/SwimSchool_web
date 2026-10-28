@@ -17,7 +17,6 @@ export default function AttendanceGrid({ grid, changes, onToggle }: AttendanceGr
       <table className="min-w-full border-collapse text-sm">
         <thead>
           <tr className="border-b-[1.5px] border-line bg-page">
-            {/* עמודת השמות: נשארת במקום בגלילה לצדדים */}
             <th
               scope="col"
               className="sticky start-0 z-10 border-e-[1.5px] border-line bg-page px-4 py-2 text-start text-xs font-bold whitespace-nowrap text-slate-500"

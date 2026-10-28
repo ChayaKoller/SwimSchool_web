@@ -13,7 +13,6 @@ import LoadingState from "../components/ui/LoadingState";
 
 type ScheduleDay = { date: string; lessons: LessonDto[] };
 
-// השיעורים מגיעים ממוינים לפי שעה, ולכן כל השיעורים של יום אחד מגיעים ברצף
 function groupByDay(lessons: LessonDto[]): ScheduleDay[] {
   const days: ScheduleDay[] = [];
   for (const lesson of lessons) {

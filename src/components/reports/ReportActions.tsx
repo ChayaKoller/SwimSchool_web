@@ -24,7 +24,6 @@ export default function ReportActions({ report, editTo }: ReportActionsProps) {
   }
 
   function handlePreview() {
-    // נפתחת מיד בלחיצה, אחרת הדפדפן חוסם אותה כחלון קופץ
     const tab = window.open("", "_blank");
     if (!tab) {
       toast.error("הדפדפן חסם את הלשונית החדשה. אפשר לאשר חלונות קופצים לאתר, או להוריד את הקובץ.");

@@ -5,7 +5,6 @@ export type LessonPreviewProps = {
   times: string[];
 };
 
-// כמה מועדים מציגים לפני ה-"…"
 const MAX_SHOWN = 6;
 
 export default function LessonPreview({ times }: LessonPreviewProps) {

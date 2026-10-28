@@ -72,7 +72,7 @@ export default function ReportForm({ defaultValues, settings, report, onSubmit, 
         },
     });
 
-    // שני כפתורי שמירה: save(false) לשמירה, save(true) לשמירה והורדה
+
     const save = (download: boolean) =>
         handleSubmit(async (values) => {
             try {

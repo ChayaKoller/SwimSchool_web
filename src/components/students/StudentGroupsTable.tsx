@@ -12,7 +12,6 @@ type StudentGroupsTableProps = {
   groups: StudentGroupDto[];
   onUpdatePayment: (row: StudentGroupDto) => void;
   onCancel: (row: StudentGroupDto) => void;
-  // לא מועבר כשהתלמידה בארכיון, ואז אין כפתור בהודעה הריקה
   onEnroll?: () => void;
 };
 

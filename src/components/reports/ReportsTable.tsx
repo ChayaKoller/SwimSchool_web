@@ -11,7 +11,6 @@ export type ReportsTableProps = {
     showStudent: boolean;
 };
 
-// המשלם: חברת הביטוח (עם תגית), או הקופה של התלמידה
 function renderPayer(r: ReportDto) {
     return r.insuranceCompany ? (
         <span className="inline-flex flex-wrap items-center gap-1.5">
@@ -50,7 +49,6 @@ const reportColumns: Column<ReportDto>[] = [
 ];
 
 export default function ReportsTable({ reports, showStudent }: ReportsTableProps) {
-    // "תיקון" חוזר למקום שממנו הגיעו: מדף התלמידה עם from=student
     const editTo = (r: ReportDto) => (showStudent ? `/reports/${r.id}/edit` : `/reports/${r.id}/edit?from=student`);
 
     const actionsColumn: Column<ReportDto> = {

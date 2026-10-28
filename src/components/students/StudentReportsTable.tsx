@@ -21,7 +21,6 @@ export default function StudentReportsTable({ studentId }: StudentReportsTablePr
 
     if (reports.data.length === 0) return <EmptyState title="עוד לא הופקו דוחות" />;
 
-    // return <DataTable columns={columns} rows={reports.data} getRowKey={(r) => r.id} />;
     return <ReportsTable reports={reports.data} showStudent={false} />;
   }
 

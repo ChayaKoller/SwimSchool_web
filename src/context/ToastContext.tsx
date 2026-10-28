@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { CircleAlert, CircleCheck, Info, X } from "lucide-react";
 import { ToastContext, type ToastApi, type ToastMessage } from "./useToast";
 
-// צבע ואייקון לכל סוג הודעה (שמות קלאסים מלאים, כדי ש-Tailwind ימצא אותם)
+
 const kindClasses = {
   success: "border-success/50 text-success",
   error: "border-danger/50 text-danger",
@@ -19,12 +19,12 @@ const kindIcons = {
 export function ToastProvider({ children }: { children: ReactNode }) {
   const [messages, setMessages] = useState<ToastMessage[]>([]);
 
-  // הסרת הודעה מהרשימה
+ 
   const removeToast = useCallback((id: string) => {
     setMessages((prev) => prev.filter((message) => message.id !== id));
   }, []);
 
-  // הוספת הודעה חדשה, שנעלמת לבד אחרי 4 שניות
+
   const addToast = useCallback(
     (kind: ToastMessage["kind"], message: string) => {
       const id = crypto.randomUUID();
@@ -34,7 +34,6 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     [removeToast],
   );
 
-  // אובייקט יציב שמועבר ל-Context
   const value = useMemo<ToastApi>(
     () => ({
       success: (text) => addToast("success", text),

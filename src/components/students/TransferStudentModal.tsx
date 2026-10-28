@@ -44,7 +44,6 @@ export default function TransferStudentModal({ onClose, student }: TransferStude
   const { formError, handleServerError } = useServerErrors(setError, CODES);
   const selectedId = useWatch({ control, name: "newTeacherId" });
 
-  // all teachers except me, filtered by the search text
   const search = query.trim();
   const items = (teachers.data ?? []).filter(
     (t) => t.id !== user?.id && (search === "" || t.fullName.includes(search)),

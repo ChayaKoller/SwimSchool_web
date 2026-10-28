@@ -19,7 +19,6 @@ export default function SecretariesPage() {
     const deactivate = useDeactivateSecretary();
     const toast = useToast();
 
-    // החלונות: מזכירה חדשה, סיסמה חדשה (למי), ואישור ביטול גישה (למי)
     const [addOpen, setAddOpen] = useState(false);
     const [passwordFor, setPasswordFor] = useState<SecretaryDto | null>(null);
     const [deactivating, setDeactivating] = useState<SecretaryDto | null>(null);

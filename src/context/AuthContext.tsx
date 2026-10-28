@@ -80,7 +80,5 @@ return(
     </AuthContext.Provider>
 )
 
-  
-
 
 }

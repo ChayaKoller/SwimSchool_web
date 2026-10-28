@@ -138,3 +138,24 @@
   -webkit-text-stroke: 1px var(--color-line);
   filter: drop-shadow(0 3px 0 rgb(52 30 160 / 0.6)) drop-shadow(0 10px 14px rgb(91 96 170 / 0.35));
 }
+/* ===== האיורים החיים בכניסה ובעמוד הבית (R8) ===== */
+@theme {
+  --animate-draw: draw 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-grow: grow 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-bars: bars 2.4s ease-in-out infinite;
+  --animate-rope: rope 3s linear infinite;
+ 
+  @keyframes draw {
+    from { stroke-dasharray: 0 100; }
+  }
+  @keyframes grow {
+    from { transform: scaleX(0); }
+  }
+  @keyframes bars {
+    50% { transform: scaleY(0.5); }
+  }
+  @keyframes rope {
+    to { stroke-dashoffset: -24; }
+  }
+}
+ 

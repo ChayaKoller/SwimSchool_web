@@ -30,13 +30,14 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           isOpen ? "translate-x-0" : "translate-x-full",
         )}
       >
-        <div className="mb-6 flex items-center justify-between">
-          <img src={sideLogo} alt="לוגו בית הספר לשחייה" className="h-12 w-auto" />
+        {/* הלוגו, וקו דק שמפריד בינו לבין הקישורים */}
+        <div className="mb-5 flex items-center justify-between border-b-[1.5px] border-line/10 pb-4">
+          <img src={sideLogo} alt="לוגו בית הספר לשחייה" className="h-16 w-auto" />
           <button
             type="button"
             onClick={onClose}
             aria-label="סגירת התפריט"
-            className="grid size-9 place-items-center rounded-full hover:bg-page md:hidden"
+            className="grid size-9 shrink-0 place-items-center rounded-full hover:bg-page md:hidden"
           >
             <X className="size-5" />
           </button>

@@ -130,7 +130,6 @@ export default function LessonAttendancePage() {
             ))}
           </ul>
 
-          {/* פס השמירה: נשאר צמוד לתחתית המסך בזמן גלילה */}
           <div className="sticky bottom-0 mt-6 flex flex-col gap-2 rounded-card border-[1.5px] border-line bg-white p-3 shadow-hard sm:flex-row sm:items-center sm:justify-end">
             {items.length === 0 && !isFutureLesson && (
               <p className="text-sm text-ink/70 sm:me-auto">יש לסמן לפחות תלמידה אחת.</p>

@@ -24,7 +24,7 @@ export default function GroupAttendancePage() {
   const goBack = useGoBack(`/groups/${groupId}`);
   const navigate = useNavigate();
 
-  // רק התאים שהמורה שינתה: cellKey ← נכחה / נעדרה
+
   const [changes, setChanges] = useState<Map<string, boolean>>(new Map());
 
   const backButton = (
@@ -64,7 +64,6 @@ export default function GroupAttendancePage() {
 
   const grid = groupAttendance.data;
 
-  // מה שנשלח: רק התאים ששונו, ורק מתוך מה שקיים עכשיו בנתונים
   const changedItems = grid.rows.flatMap((row) =>
     row.cells.flatMap((cell) => {
       const value = changes.get(cellKey(row.enrollmentId, cell.lessonId));

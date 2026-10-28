@@ -21,12 +21,11 @@ export default function ScheduleLessonCard({ lesson }: ScheduleLessonCardProps) 
                 hasStarted ? "bg-white" : "bg-page",
             )}
         >
-            {/* השעה */}
+    
             <span className="w-16 shrink-0 text-2xl font-extrabold text-line tabular-nums">
                 {formatTime(lesson.startTime)}
             </span>
 
-            {/* שם הקבוצה והתגיות */}
             <div className="flex min-w-0 flex-1 flex-col gap-1.5">
                 <Link
                     to={`/groups/${lesson.groupId}`}
@@ -40,7 +39,6 @@ export default function ScheduleLessonCard({ lesson }: ScheduleLessonCardProps) 
                 </div>
             </div>
 
-            {/* סימון נוכחות: רק לשיעור שכבר התחיל */}
             {hasStarted && (
                 <Link
                     to={`/lessons/${lesson.lessonId}/attendance`}

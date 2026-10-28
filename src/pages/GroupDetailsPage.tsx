@@ -38,7 +38,7 @@ export default function GroupDetailsPage() {
   const navigate = useNavigate();
   const goBack = useGoBack("/groups");
 
-  // החלונות: false / null = סגור
+ 
   const [enrollOpen, setEnrollOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [addOpen, setAddOpen] = useState(false);

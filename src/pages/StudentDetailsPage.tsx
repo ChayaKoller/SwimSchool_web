@@ -136,13 +136,13 @@ export default function StudentDetailsPage() {
         }
       />
 
-      {/* שורת התגיות מתחת לשם */}
+    
       <div className="-mt-3 mb-6 flex flex-wrap items-center gap-2">
         <Badge tone="info">{healthFundLabels[s.healthFund]}</Badge>
         {!s.isActive && <Badge tone="neutral">בארכיון</Badge>}
       </div>
 
-      {/* פס הארכיון: שורה נפרדת, מתחת לתגיות */}
+
       {!s.isActive && (
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-card border-[1.5px] border-line/25 bg-page px-4 py-3">
           <p className="text-sm text-ink/80">
@@ -167,7 +167,6 @@ export default function StudentDetailsPage() {
         <StudentReportsTable studentId={s.id} />
       </div>
 
-      {/* החלונות: קיימים רק כשהם פתוחים, כדי שכל פתיחה תתחיל מטופס נקי */}
       <ConfirmDialog
         isOpen={confirmOpen}
         onClose={() => setConfirmOpen(false)}

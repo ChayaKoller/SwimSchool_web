@@ -9,10 +9,8 @@ type RequireRoleProps = {
 
 export default function RequireRole({ role }: RequireRoleProps) {
   const { user } = useAuth();
-
   if (user?.role !== role) {
     return <ForbiddenPage />;
   }
-
   return <Outlet />;
 }

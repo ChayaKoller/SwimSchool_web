@@ -26,7 +26,7 @@ export default function ReportFormPage() {
   const toast = useToast();
   const navigate = useNavigate();
 
-  // לאן חוזרים: לדף התלמידה אם הגיעו משם, אחרת לרשימת הדוחות
+
   const studentParam = searchParams.get("studentId");
   const backTo = isEdit
     ? searchParams.get("from") === "student" && report.data
@@ -45,7 +45,7 @@ export default function ReportFormPage() {
     toast.success(isEdit ? "הדוח עודכן" : "הדוח נשמר");
 
     if (download) {
-      // הדוח כבר נשמר, ולכן שגיאה בהורדה לא חוזרת לטופס
+
       try {
         await downloadReport.mutateAsync(saved);
       } catch {

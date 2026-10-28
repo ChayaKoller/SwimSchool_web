@@ -34,7 +34,6 @@ export default function MoveLessonModal({ lesson, onClose }: MoveLessonModalProp
     defaultValues: { startTime: toLocalInput(lesson.startTime) },
   });
 
-  // LESSON_HAS_ATTENDANCE לא שייך לשדה, ולכן מוצג ב-FormError
   const { handleServerError, formError } = useServerErrors(setError);
 
   const submit = handleSubmit(async (values) => {
